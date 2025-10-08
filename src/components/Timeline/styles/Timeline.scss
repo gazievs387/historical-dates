@@ -4,6 +4,11 @@
 .timeline {
     display: flex;
     margin-top: 56px;
+
+
+    .swiper {
+        cursor: grab;
+    }
 }
 
 

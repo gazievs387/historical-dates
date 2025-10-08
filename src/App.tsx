@@ -2,15 +2,18 @@ import { Circle } from 'components/Circle';
 import { Controls } from 'components/Controls';
 import { Timeline } from 'components/Timeline';
 import { historicalData } from 'consts/historicalData';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import "styles/App.scss"
-import { getCircleRadius } from 'utils/getCircleRadius';
-  
+
 
 function App() {
-    const [radius, setRadius] = useState(getCircleRadius())
     const [circleStep, setCircleStep] = useState(0)
     const dataLength = historicalData.length
+
+
+    const onChangeStep = useCallback((step: number) => {
+        setCircleStep(step)
+    }, [])
 
     
     return (
@@ -19,13 +22,13 @@ function App() {
                 <span className='head'>Исторические <br /> даты</span>
 
                 <Circle 
+                    onChangeStep={onChangeStep}
                     elements={historicalData}
-                    radius={radius} 
-                    setRadius={setRadius}
                     circleStep={circleStep} 
                 />
 
                 <Controls 
+                    onChangeStep={onChangeStep}
                     circleStep={circleStep} 
                     totalSteps={dataLength} 
                 />

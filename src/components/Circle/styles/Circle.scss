@@ -14,6 +14,7 @@
         aspect-ratio: 1 / 1;
         border: 1px solid rgba($blackBlue, 0.2);
         border-radius: 50%;
+        transition: transform 1.5s;
 
         .item {
             position: absolute;
@@ -32,9 +33,21 @@
 
             &.active {
                 background-color: $bgWhite;
+                z-index: 10;
+            }
+
+            
+            &::before {
+                content: "";
+                position: absolute;
+                top: -20px;
+                right: -20px;
+                bottom: -20px;
+                left: -20px;
             }
 
             .category {
+                min-width: 80px;
                 color: $blackBlue;
                 font-size: 20px;
                 font-family: PTSans;
@@ -49,9 +62,10 @@
     .years {
         position: absolute;
         display: flex;
-        gap: 110px;
+        gap: 65px;
         top: 39.5vh;
         left: 50%;
+        letter-spacing: -2%;
         pointer-events: none;
         user-select: none;
   

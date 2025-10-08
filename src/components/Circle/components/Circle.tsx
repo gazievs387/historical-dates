@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect  } from "react";
+import { Dispatch, SetStateAction, useCallback, useEffect, useState  } from "react";
 import { getCircleRadius } from "utils/getCircleRadius";
 import "../styles/Circle.scss"
 import { CircleElement } from "./CircleElement";
@@ -6,16 +6,20 @@ import { Period } from "types/historicalDates";
 
 
 interface CircleProps {
-    radius: number;
-    setRadius: Dispatch<SetStateAction<number>>;
     circleStep: number;
     elements: Period[];
+    onChangeStep: (step: number) => void;
 }
 
 
-export function Circle({radius, setRadius, circleStep, elements} : CircleProps) {
+export function Circle({circleStep, onChangeStep, elements} : CircleProps) {
+    const [radius, setRadius] = useState(getCircleRadius())
     const totalElements = elements.length;
     const angleStep = 360 / totalElements; 
+    const [activeEls, setActiveEls] = useState<number[]>([])
+
+    // Вычисляем на сколько нужно повернуть круг
+    const rotateDeg = angleStep * circleStep
 
 
     useEffect(() => {
@@ -31,24 +35,41 @@ export function Circle({radius, setRadius, circleStep, elements} : CircleProps) 
     }, [])
 
 
+    const onClickItem = useCallback((index: number) => {
+        onChangeStep(index)
+    }, [])
+
+    
     return (
         <div className='dateCircle'>
-            <div className='circle'>
+            <div 
+                className='circle' 
+                style={{
+                    transform: `rotate(-${rotateDeg}deg)`
+                }}
+            >
                 {elements.map((value, index) => {
-                    const angle = index * angleStep + 180 / totalElements
+                    const isActive = index === circleStep
+                    const isMouseOn = activeEls.includes(index)
+
                     
-                    const isActive = circleStep === index
-                    const deviation = isActive ? 20 : 3
+                    const angle = index * angleStep + 180 / totalElements
+
+                    const deviation = (isActive || isMouseOn) ? 25 : 3
 
                     const x = Math.cos((angle - 90) * (Math.PI / 180)) * radius - deviation
                     const y = Math.sin((angle - 90) * (Math.PI / 180)) * radius - deviation
 
                     return (
-                        <CircleElement 
+                        <CircleElement
                             key={value.id}
                             index={index}
                             value={value}
+                            rotateDeg={rotateDeg}
+                            onClick={onClickItem}
                             isActive={isActive}
+                            isMouseOn={isMouseOn}
+                            setActiveEls={setActiveEls}
                             x={x}
                             y={y}
                         />

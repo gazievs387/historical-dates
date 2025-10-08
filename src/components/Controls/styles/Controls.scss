@@ -21,7 +21,16 @@
         height: 50px;
         border: 1px solid rgba($blackBlue, 0.5);
         border-radius: 50%;
+        cursor: pointer;
         opacity: 0.5;
+
+        &.active {
+            opacity: 1;
+
+            &:hover {
+                background-color: white;
+            }
+        }
 
         svg {
             display: flex;
@@ -30,8 +39,5 @@
             color: $blackBlue;
         }
 
-        &.active {
-            opacity: 1;
-        }
     }
 }
