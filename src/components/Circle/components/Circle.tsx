@@ -1,8 +1,9 @@
-import { Dispatch, SetStateAction, useCallback, useEffect, useState  } from "react";
+import { useState, useEffect, useCallback } from "react"
 import { getCircleRadius } from "utils/getCircleRadius";
 import "../styles/Circle.scss"
 import { CircleElement } from "./CircleElement";
 import { Period } from "types/historicalDates";
+import Years from "./Years";
 
 
 interface CircleProps {
@@ -78,11 +79,10 @@ export function Circle({circleStep, onChangeStep, elements} : CircleProps) {
 
             </div>
 
-            <div className='years'>
-                <span className='first'>{elements[circleStep].startYear}</span>
-
-                <span className='second'>{elements[circleStep].endYear}</span>
-            </div>
+            <Years 
+                startYear={elements[circleStep].startYear} 
+                endYear={elements[circleStep].endYear}
+            />
         </div>
     );
 }
