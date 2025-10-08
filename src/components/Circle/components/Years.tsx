@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { changeYear } from 'utils/changeYear';
 
 
@@ -10,16 +10,19 @@ interface YearsProps {
 
 function Years({startYear, endYear}: YearsProps) {
     const [currentYears, setYears] = useState({startYear: 0, endYear: 0})
+    const interval = useRef<NodeJS.Timeout | undefined>(undefined)
 
 
     useEffect(() => {
+        clearInterval(interval.current)
+
         if (!currentYears.endYear && !currentYears.endYear) {
             setYears({startYear, endYear})
         } else {
-            const interval = setInterval(() => {
+            interval.current = setInterval(() => {
                 setYears((years) => {
                     if (years.startYear === startYear && years.endYear === endYear) {
-                        clearInterval(interval)
+                        clearInterval(interval.current)
                     }
                     
                     return ({
