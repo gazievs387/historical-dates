@@ -7,6 +7,8 @@ import { ReactComponent as ArrowIcon } from "static/svgs/Arrow.svg"
 import "swiper/css"
 import "swiper/css/navigation"
 import "../styles/Timeline.scss"
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 
 
 interface TimelineProps {
@@ -15,8 +17,20 @@ interface TimelineProps {
 
 
 export function Timeline({period}: TimelineProps) {
+    const [periodData, setPeriodData] = useState(period)
     const [slide, setSlide] = useState(0)
     const swiperEl = useRef<SwiperClass>(undefined)
+
+
+    useGSAP(() => {
+        gsap.to(".timeline", {opacity: 0, duration: 0.5}).then(() => {
+            
+            setPeriodData(period)
+
+            gsap.to(".timeline", {opacity: 1, duration: 0.5})
+        })
+
+    }, { dependencies: [period], revertOnUpdate: true})
 
 
     return (
@@ -35,6 +49,7 @@ export function Timeline({period}: TimelineProps) {
             </div>
 
             <Swiper
+                key={periodData.id} 
                 className='swiper'
                 onSwiper={(swiper) => {swiperEl.current = swiper}}
                 onRealIndexChange={(swiper) => {setSlide(swiper.activeIndex)}}
@@ -46,7 +61,7 @@ export function Timeline({period}: TimelineProps) {
                 keyboard
                 modules={[Mousewheel, FreeMode, Pagination, Keyboard]}
             >
-                {period.events.map((periodEvent, index) => 
+                {periodData.events.map((periodEvent, index) => 
                     // Статичный список, поэтому можно использовать index как key
                     <SwiperSlide key={index}>
                         <TimelineEvent event={periodEvent}/>
