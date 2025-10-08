@@ -41,3 +41,29 @@
 
     }
 }
+
+
+@media (max-width: 900px) {
+    .controlsWrapper {
+        position: absolute;
+        z-index: 10;
+        gap: 6px;
+        bottom: 0px;
+        left: 0px;
+        margin-left: 0px;
+        margin-bottom: 13px;
+
+        div {
+            width: 25px;
+            height: 25px;
+
+            svg {
+                scale: 0.6;
+            }
+        }
+
+        span {
+            scale: 1;
+        }
+    }
+}

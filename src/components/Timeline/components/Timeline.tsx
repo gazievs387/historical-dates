@@ -6,9 +6,11 @@ import { FreeMode, Keyboard, Mousewheel, Pagination } from "swiper/modules"
 import { ReactComponent as ArrowIcon } from "static/svgs/Arrow.svg"
 import "swiper/css"
 import "swiper/css/navigation"
+import "swiper/css/pagination"
 import "../styles/Timeline.scss"
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import { deviceScreen } from 'utils/mediaScreen';
 
 
 interface TimelineProps {
@@ -20,7 +22,8 @@ export function Timeline({period}: TimelineProps) {
     const [periodData, setPeriodData] = useState(period)
     const [slide, setSlide] = useState(0)
     const swiperEl = useRef<SwiperClass>(undefined)
-
+    const isDesktop = deviceScreen === "desktop" || deviceScreen === "lg"
+    
 
     useGSAP(() => {
         gsap.to(".timeline", {opacity: 0, duration: 0.5}).then(() => {
@@ -53,11 +56,12 @@ export function Timeline({period}: TimelineProps) {
                 className='swiper'
                 onSwiper={(swiper) => {swiperEl.current = swiper}}
                 onRealIndexChange={(swiper) => {setSlide(swiper.activeIndex)}}
-                slidesPerView={3}
-                spaceBetween={80}
+                slidesPerView={isDesktop ? 3 : 1.5}
+                spaceBetween={isDesktop ? 80 : 25}
                 mousewheel
                 freeMode
-                pagination={{clickable: true}}
+                grabCursor
+                pagination={!isDesktop && {clickable: true, bulletClass: "swiper-pagination-bullet bullet", bulletActiveClass: "bulletActive"}}
                 keyboard
                 modules={[Mousewheel, FreeMode, Pagination, Keyboard]}
             >

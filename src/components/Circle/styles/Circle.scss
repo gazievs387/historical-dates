@@ -85,11 +85,45 @@
 }
 
 
-@media (max-width: 1600px) {
+@media (max-width: 1600px) and (min-width: 900px) {
     .dateCircle {
         .years {
             font-size: 100px;
             gap: 120px; 
+        }
+    }
+}
+
+@media (max-width: 900px) {
+    .dateCircle {
+        position: unset;
+        height: unset;
+
+        .circle {
+            display: none;
+        }
+
+        .years {
+            width: 100%;
+            font-size: 56px;
+            display: flex;
+            justify-content: space-around;
+            gap: 0;
+            position: unset;
+            transform: unset;
+            margin-top: 56px;
+
+            span {
+                display: block;
+            }
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .dateCircle {
+        .years {
+            justify-content: space-between;
         }
     }
 }

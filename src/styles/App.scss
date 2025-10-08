@@ -17,7 +17,7 @@ main {
 .mainContent {
     position: relative;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     border: 1px solid $blackBlueLight;
 
     .head {
@@ -58,10 +58,15 @@ main {
         height: 1px;
         background: $blackBlueLight;
     }
+
+    .mobileDivider {
+        display: none;
+    }
+
 }
 
 
-@media (max-width: 1600px) {
+@media (max-width: 1600px) and (min-width: 900px) {
     .mainContent {
         .head { 
             font-size: 32px;
@@ -69,4 +74,39 @@ main {
         }
     }
 
+}
+
+@media (max-width: 900px) {
+    main {
+        width: 87.5%;
+        background-color: $bgWhite;
+        padding-left: 6.25%;
+        padding-right: 6.25%;
+    }
+
+    .mainContent {
+        display: flex;
+        flex-direction: column;
+        border: none;
+
+        .head {
+            font-size: 20px;
+            border-image: none;
+            border-style: none;
+            padding-left: 0;
+            margin-top: 59px;
+            margin-left: 0;
+        }
+
+        &::before, &::after {
+            display: none;
+        }
+
+        .mobileDivider {
+            display: block;
+            background-color: #C7CDD9;
+            height: 1px;
+            margin-top: 56px;
+        }
+    }
 }
