@@ -68,7 +68,13 @@ function getWebpackConfig(env: any): Configuration {
                             loader: "css-loader",
                         },
                         { 
-                            loader: "sass-loader"
+                            loader: "sass-loader",
+                            options: {
+                                additionalData: '@use "styles/global" as *;',
+                                sassOptions: {
+                                    loadPaths: [getPath("src")]
+                                }
+                            },
                         }
                     ]
                 },

@@ -1,0 +1,68 @@
+
+
+
+.timeline {
+    display: flex;
+    margin-top: 56px;
+}
+
+
+.timelineEvent {
+    span {
+        color: $blue;
+        font-size: 25px;
+        font-family: Bebas Neue;
+    }
+
+    p {
+        color: $blackBlue;
+        font-size: 20px;
+        line-height: 30px;
+        margin-top: 15px;
+    }
+}
+
+
+.nextEl, .prevEl {
+    flex-shrink: 0;
+    width: 80px;
+    display: inline-flex;
+    justify-self: center;
+    align-items: center;
+    text-align: center;
+
+    div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        background-color: white;
+        box-shadow: 0px 0px 15px 0px rgba($blue, 0.2);
+        cursor: pointer;
+        border-radius: 50%;
+        margin-inline: 20px;
+        
+
+        svg {
+            color: $blue;
+        }
+    }
+}
+
+
+@media (max-width: 1600px) {
+    .timeline {
+        margin-top: 40px;
+    }
+
+    .timelineEvent {
+        p {
+            color: $blackBlue;
+            font-size: 17px;
+            line-height: 25px;
+            margin-top: 10px
+        }
+    }
+
+}
