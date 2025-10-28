@@ -1,6 +1,23 @@
-import React, { Dispatch, memo, MouseEventHandler, SetStateAction } from 'react';
+import React, { Dispatch, memo, SetStateAction } from 'react';
 import { Period } from 'types/historicalDates';
 
+
+function getElementClass(expandItem: boolean, index: number): string {
+    let className: string = "item"
+
+    console.log(expandItem, index)
+
+    if (expandItem) {
+        className = className.concat(" active")
+    }
+
+    if (index === 1) {
+        // if second element
+        className = className.concat(" highlightEl")
+    }
+
+    return className
+}
 
 interface CircleElementProps {
     index: number;
@@ -25,7 +42,7 @@ function CircleElementComponent({index, value, x, y, rotateDeg, onClick, isActiv
             onClick={() => onClick(index)}
             onMouseEnter={() => {setActiveEls(els => [...els, index])}}
             onMouseLeave={() => {setActiveEls(els => els.filter((el) => el !== index))}}
-            className={"item" + (expandItem ? " active" : "")}
+            className={getElementClass(expandItem, index)}
             style={{
                 width: size,
                 height: size,

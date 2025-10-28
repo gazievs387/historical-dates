@@ -9,10 +9,10 @@ export function Tour({ children }: PropsWithChildren) {
 
     const steps: StepType[] = [
         {
-            selector: ".circle",
-            content: "Попробуйте навести и нажать на один из элементов, расположенных по кругу",
+            selector: ".highlightEl",
+            content: "Попробуйте навести и нажать на элемент",
             styles: {badge: () => ({display: "none"}), controls: () => ({display: "none"})},
-            padding: 20
+            padding: 30
         }
     ]
     
