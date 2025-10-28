@@ -1,12 +1,15 @@
 import { HistoricalDates } from "components/HistoricalDates";
 import "styles/App.scss"
+import { Tour } from "./Tour";
 
 
 function App() {
     return (
-        <main>
-            <HistoricalDates />
-        </main>
+        <Tour>
+            <main>
+                <HistoricalDates />
+            </main>
+        </Tour>
     )
 }
 

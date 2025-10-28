@@ -31,7 +31,7 @@ function Years({startYear, endYear}: YearsProps) {
                     })
                 })
 
-            }, 50)
+            }, 75)
         }
 
     }, [startYear, endYear])

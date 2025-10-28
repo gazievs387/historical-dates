@@ -4,6 +4,7 @@ import "../styles/Circle.scss"
 import { CircleElement } from "./CircleElement";
 import { Period } from "types/historicalDates";
 import Years from "./Years";
+import { useTour } from "@reactour/tour";
 
 
 interface CircleProps {
@@ -18,12 +19,17 @@ export function Circle({circleStep, onChangeStep, elements} : CircleProps) {
     const totalElements = elements.length;
     const angleStep = 360 / totalElements; 
     const [activeEls, setActiveEls] = useState<number[]>([])
+    const { setIsOpen } = useTour()
+
 
     // Вычисляем на сколько нужно повернуть круг
     const rotateDeg = angleStep * circleStep
 
 
     useEffect(() => {
+        setIsOpen(true)
+
+        
         function handleResize() {
             setRadius(getCircleRadius())
         }
@@ -45,6 +51,7 @@ export function Circle({circleStep, onChangeStep, elements} : CircleProps) {
         <div className='dateCircle'>
             <div 
                 className='circle' 
+                onClick={() => {setIsOpen(false)}}
                 style={{
                     transform: `rotate(-${rotateDeg}deg)`
                 }}
